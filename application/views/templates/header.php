@@ -12,7 +12,7 @@
         <title>RETRIEVE - Find Your Lost Documents | <?=$title?></title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Destino project">
+        <meta name="description" content="Retrieve">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/bootstrap4/bootstrap.min.css">
         <link href="<?= base_url() ?>assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +21,10 @@
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/plugins/OwlCarousel2-2.2.1/animate.css">
         <link href="<?= base_url() ?>assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/main_styles.css">
+
+        <link rel="icon" href="<?= base_url() ?>assets/images/logo.png">
+
+
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/responsive.css">
         <?php
         if ($title == "member" || $title == "contacts" || $title == "doc") {

@@ -149,6 +149,51 @@
                                         });// you have missed this bracket
                                     });
                                 });
+
+                            if (window.Notification && Notification.permission !== "denied")
+                            {
+                                Notification.requestPermission(function (status) {  // status is "granted", if accepted by user
+                                    var n = new Notification('Retrieve', {
+                                        body: 'Bonjour ! Bienvenue sur Retrieve',
+                                        icon: '<?= base_url() ?>assets/images/logo.png' // optional
+                                    });
+                                });
+                            }
+
+                            $(document).ready(function () {
+                                $('#getConnect').on('submit', function (e) {
+                                    var $this = $(this);
+                                    e.preventDefault();
+                                    $this.find('#reponses').show();
+                                    $this.find('#reponses').html('<div class="col-md-12 alert text-center" style="background: #f5f5f5;; padding:5px;"><center><img src="<?php echo base_url(); ?>assets/img/loading.gif" style="width: 80px; height: 80px; border-radius: 50%;"/><br>En cours de verification ...</center>'
+                                            + '</div>');
+                                    $this.find('#push').hide();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "",
+                                        data: $this.serialize(),
+                                        dataType: 'json',
+                                        success:
+                                                function (data) {
+                                                    if (data == 0) {
+                                                        $this.find('#reponses').html('<div class="alert" style="background: #f5f5f5; color: green; margin-top: 0px;">'
+                                                                + '<div class="col-md-12 text-center">Redirection en cours ...'
+                                                                + '</div></div>');
+                                                        $this.find('#push').show();
+                                                        setTimeout(function () {
+                                                            window.location.reload();
+                                                        }, 1500);
+                                                    } else {
+                                                        $this.find('#push').show();
+                                                        $this.find('#reponses').html('<div class="alert" style="background: #f5f5f5; color: #ff6565; margin-top: 0px;">'
+                                                                + '<div class="col-md-12 text-center">'
+                                                                + data + '</div></div>');
+                                                        $this.find('#push').show();
+                                                    }
+                                                }
+                                    });// you have missed this bracket
+                                })
+                            });
 </script>
 </body>
 </html>
