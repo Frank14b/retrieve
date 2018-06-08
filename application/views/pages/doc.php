@@ -4,6 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 ?>
 
 <!-- Home -->
@@ -46,12 +47,12 @@
             <div class="col-lg-6 about_col order-lg-1 order-2">
                 <div class="about_content" style="text-align: justify;">
                     <div class="contact_form_container">
-                        <form method="post" id="getConnect" class="clearfix sendData">
-                            <input id="contact_input_name" class="contact_input contact_input_name input" type="text" name="email" placeholder="votre Email ou Login" required="required" data-error="email is required.">
-                            <input id="contact_input_email" class="contact_input contact_input_email input" type="password" name="password" placeholder="votre mot de Passe" required="required" data-error="Password is required.">
+                        <form method="post" id="getConnect" class="clearfix">
+                            <input id="contact_input_name2" class="contact_input contact_input_name input" type="text" name="email" placeholder="votre Email ou Login" required="required" data-error="email is required.">
+                            <input id="contact_input_email2" class="contact_input contact_input_email input" type="password" name="password" placeholder="votre mot de Passe" required="required" data-error="Password is required.">
                             <button id="push" type="submit" class="newsletter_button pull-right" value="Submit">M'identifier</button>
                             <button type="button" id="reponses" class="newsletter_button button3 pull-right"></button>
-                            <input type="hidden" name="contacts" class="answer" value="Succes"/>
+                            <input type="hidden" name="connexion" class="answer" value="Succes"/>
                             <a href="<?= base_url() ?>fr/member"><button type="button" class="newsletter_button pull-right btn-success" style="background:#20c997">M'inscrire</button></a>
                         </form><hr>
                         <a href="#">Mot de passe oublier ?</a>

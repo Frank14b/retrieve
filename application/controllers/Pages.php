@@ -27,7 +27,7 @@ class Pages extends CI_Controller
             }
             $this->Inscription();
 
-            $this->Connexion();
+            $this->connexion();
             $this->newsletter();
             $this->contacts();
 
@@ -38,7 +38,7 @@ class Pages extends CI_Controller
                $data[$param2] = $param1;
             }
 
-            if (isset($_SESSION['retreive_user'])) {
+            if (isset($_SESSION['re_user'])) {
                 $lang = $_SESSION['abbr_lang'] ?? "en";
                 //$url = "http://localhost/CodeIgniter/";
                 header("Location:" . base_url() . $lang . "/dashboard");
@@ -55,13 +55,13 @@ class Pages extends CI_Controller
         }
     }
 
-    public function Connexion()
+    public function connexion()
     {
-        if (isset($_POST['connectUser'])) {
-            if ($this->users->connectUsers()) {
-                foreach ($this->users->connectUsers($_POST) as $dat) {
+        if (isset($_POST['connexion'])) {
+            if ($this->users->connectusers()) {
+                foreach ($this->users->connectusers($_POST) as $dat) {
                     $id = $dat->id;
-                    $user = $dat->matricule;
+                    $user = $dat->login;
                     $pass = $dat->password;
                     $status = $dat->status;
                 }

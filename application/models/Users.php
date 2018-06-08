@@ -222,8 +222,8 @@ class users extends CI_Model
     public function connectusers()
     {
         $this->password = sha1($_POST['password']);
-        $this->matricule = $_POST['matricule'];
-        $query = $this->db->get_where("users", array('matricule' => $this->matricule, 'password' => $this->password));
+        $this->email = $_POST['email'];
+        $query = $this->db->get_where("users", array('email' => $this->email, 'password' => $this->password));
         if ($query) {
             return $query->result();
         } else {
@@ -260,8 +260,8 @@ class users extends CI_Model
         if (!isset($_SESSION)) {
             session_start();
         }
-        $_SESSION['ens_user'] = $user;
-        $_SESSION['ens_userid'] = $id;
+        $_SESSION['re_user'] = $user;
+        $_SESSION['re_userid'] = $id;
     }
 
     public function getusersByID($id)
