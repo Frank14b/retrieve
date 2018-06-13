@@ -136,6 +136,7 @@
                             </div>
                             <div class="col-lg-7">
                                 <div class="contact_form_container">
+                                <h2>Informations du Compte</h2><hr>
                                     <form method="post" id="contact_member" class="clearfix sendData">
                                         <div class="row">
                                             <input type="hidden" class="answer" name="inscript" value="Inscription effectuée avec succes"/>

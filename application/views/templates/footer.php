@@ -16,7 +16,7 @@
 
 <div class="newsletter">
     <!-- Image by https://unsplash.com/@garciasaldana_ -->
-    <div class="newsletter_background" style="background-image:url(<?= base_url() ?>assets/images/newsletter.jpg)"></div>
+    <div class="newsletter_background" style="background:url(<?= base_url() ?>assets/img/Untitled-1.png) center/cover; background-attachment:fixed;"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
@@ -162,7 +162,6 @@
 
                             $(document).ready(function () {
                                 $('#getConnect').on('submit', function (e) {
-                                    alert(1);
                                     var $this = $(this);
                                     e.preventDefault();
                                     $this.find('#reponses').show();
@@ -176,12 +175,13 @@
                                         dataType: 'json',
                                         success:
                                                 function (data) {
-                                                    alert(data);
+                                                    //alert(data);
                                                     if (data == 0) {
+                                                        window.location.href="";
                                                             $this.find('#reponses').html('<div class="alert" style="background: #f5f5f5; color: green; margin-top: 0px; height:56px">'
                                                                     + '<div class="col-md-12 text-center">' + texte
                                                                     + '</div></div>');
-                                                            $this.find('.input').val("");
+                                                            $this.find('input').val("");
                                                             setTimeout(function () {
                                                                 window.location.reload();
                                                             }, 1500);

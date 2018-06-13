@@ -14,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="Retrieve">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/bootstrap4/bootstrap.min.css">
+        
         <link href="<?= base_url() ?>assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
@@ -23,11 +23,12 @@
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/main_styles.css">
 
         <link rel="icon" href="<?= base_url() ?>assets/images/logo.png">
+        <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/bootstrap4/bootstrap.min.css">
 
 
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/responsive.css">
         <?php
-        if ($title == "member" || $title == "contacts" || $title == "doc") {
+        if ($title == "member" || $title == "contacts" || $title == "doc" || $title="dashboard") {
             ?>
             <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/contact_styles.css">
             <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/contact_responsive.css">
@@ -304,11 +305,36 @@
                                 <!-- Main Navigation -->
                                 <nav class="main_nav ml-auto">
                                     <ul class="main_nav_list">
-                                        <li class="main_nav_item <?php if ($title == "acceuil")echo 'active'?>"><a href="<?= base_url() ?>">Acceuil</a></li>
-                                        <li class="main_nav_item <?php if ($title == "apropos")echo 'active'?>"><a href="<?= base_url() ?>fr/apropos">Apropos</a></li>
-                                        <li class="main_nav_item <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">M'inscrire</a></li>
-                                        <li class="main_nav_item <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Signaler un Document</a></li>
-                                        <li class="main_nav_item <?php if ($title == "contacts")echo 'active'?>"><a href="<?= base_url() ?>fr/contacts">Contacts</a></li>
+                                        
+                            <?php
+                              if(isset($_SESSION['re_userid'])){
+                                  ?>
+                                   <li class="main_nav_item <?php if ($title == "acceuil")echo 'active'?>"><a href="<?= base_url() ?>fr/member">Mon Compte</a></li> 
+                                  <?php 
+                              }else{
+                                  ?>
+                                    <li class="main_nav_item <?php if ($title == "acceuil")echo 'active'?>"><a href="<?= base_url() ?>">Acceuil</a></li>
+                                    <li class="main_nav_item <?php if ($title == "apropos")echo 'active'?>"><a href="<?= base_url() ?>fr/apropos">Apropos</a></li>
+                                    <li class="main_nav_item <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">M'inscrire</a></li>
+                                    <li class="main_nav_item <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Signaler un Document</a></li>
+                                    <li class="main_nav_item <?php if ($title == "contacts")echo 'active'?>"><a href="<?= base_url() ?>fr/contacts">Contacts</a></li>
+                                  <?php 
+                              }
+                            ?>
+                                        
+                                        
+                            <?php 
+                             if(isset($_SESSION['re_user'])){
+                                 ?>
+                                 <li class="main_nav_item <?php if ($title == "signaler")echo 'active'?>"><a href="<?= base_url() ?>fr/dashboard/signaler">Signaler Documents</a></li>
+                                 <li class="main_nav_item <?php if ($title == "retrouver")echo 'active'?>"><a href="<?= base_url() ?>fr/dashboard/retrouver">Documents Disponibles</a></li>
+                                 <li class="btn btn-danger btn-sm"><a href="<?= base_url() ?>fr/dashboard/deconnexion" style="color:#fff">Deconnexion</a></li>
+                                 <?php 
+                                 if($roleUser == "Admin"){
+                                     ?><li class="btn btn-primary btn-sm"><a href="<?= base_url() ?>fr/dashboard/config" style="color:#fff">Configuration</a></li><?php 
+                                 }
+                             }
+                            ?>
                                     </ul>
                                 </nav>
 
@@ -350,9 +376,26 @@
                         <ul class="menu_list menu_mm">
                             <li class="menu_item menu_mm <?php if ($title == "acceuil")echo 'active'?>"><a href="<?= base_url() ?>">Acceuil</a></li>
                             <li class="menu_item menu_mm <?php if ($title == "apropos")echo 'active'?>"><a href="<?= base_url() ?>fr/apropos">Apropos</a></li>
-                            <li class="menu_item menu_mm <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">M'inscrire</a></li>
-                            <li class="menu_item menu_mm <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Signaler un Document</a></li>
+                            <?php
+                              if(isset($_SESSION['re_userid'])){
+                                  ?>
+                                   <li class="menu_item menu_mm <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">Mon Compte</a></li>
+                                  <?php 
+                              }else{
+                                  ?>
+                                   <li class="menu_item menu_mm <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">M'inscrire</a></li>
+                                   <li class="menu_item menu_mm <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Signaler un Document</a></li>
+                                  <?php 
+                              }
+                            ?>
                             <li class="menu_item menu_mm <?php if ($title == "contacts")echo 'active'?>"><a href="<?= base_url() ?>fr/contacts">Contacts</a></li>
+                            <?php 
+                             if(isset($_SESSION['re_user'])){
+                                 ?>
+                                  <li class="btn btn-danger btn-sm"><a href="<?= base_url() ?>fr/dashboard/deconnexion" style="color:#fff">Deconnexion</a></li>
+                                 <?php 
+                             }
+                            ?>
                         </ul>
 
                         <!-- Menu Social -->

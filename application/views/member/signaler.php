@@ -69,7 +69,7 @@ $CI = &get_instance();
             <div class="col">
                 <div class="home_content">
                     <div class="home_content_inner">
-                        <div class="home_title">Bienvenue <?= $CI->users->getOneData($_SESSION['re_userid'], "prenom"); ?></div>
+                        <div class="home_title">Signaler un Document Trouvé</div>
                         <div class="home_breadcrumbs">
                             <ul class="home_breadcrumbs_list">
                                 <li class="home_breadcrumb"><a href="index.html">Signaler, Rechercher</a></li>
@@ -101,48 +101,30 @@ $CI = &get_instance();
                         <div class="row contact_content">
                             <div class="col-lg-5">
                                 <div class="col-md-12">
-                                   <img src="<?= base_url() ?>assets/img/avatar6.png" class="img-responsive"/>
-                                   <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#picture">Mettre a jour ma photo</button>
+                                   <img src="<?= base_url() ?>assets/img/580629-636313300554991042-16x9.jpg" class="img-fluid"/><hr>
+                                   <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#picture">Consulter les Documents</button>
                                 </div>
 
                             </div>
                             <div class="col-lg-7">
                                 <div class="contact_form_container">
-                                <h2>Informations du Compte</h2>
+                                <h2>Informations du Document</h2>
                                 <form method="post" id="contact_member" class="clearfix sendData">
                                         <div class="row">
-                                            <input type="hidden" class="answer" name="inscript" value="Inscription effectuée avec succes"/>
-                                            <input type="hidden" name="role" value="member"/>
+                                            <input type="hidden" class="answer" name="inscript" value="Ajout effectué avec succes"/>
+                                            <input type="hidden" name="Use_id" value="<?php ?>"/>
                                             <div class="col-md-6">
-                                                <input id="contact_input_name1" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "nom"); ?>" name="nom" class="contact_input contact_input_name input" type="text" placeholder="Votre Nom" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input id="contact_input_name2" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "prenom"); ?>" name="prenom" class="contact_input contact_input_name input" type="text" placeholder="Votre Prenom" required="required" data-error="Name is required.">
+                                                <input id="contact_input_name1" value="" name="libeller" class="contact_input contact_input_name input" type="text" placeholder="Titre de l'objet" required="required" data-error="Name is required.">
                                             </div>
                                             <div class="col-md-6">
-                                                <input id="contact_input_email2" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "email"); ?>" name="email" class="contact_input contact_input_email input" type="text" placeholder="Votre E-mail" required="required" data-error="E-mail is required.">
+                                                <input id="contact_input_name10" value="" name="nomP" class="contact_input contact_input_name input" type="text" placeholder="Nom du Proprietaire" required="required" data-error="Name is required.">
                                             </div>
                                             <div class="col-md-6">
-                                                <input id="contact_input_name3" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "login"); ?>" name="login" class="contact_input contact_input_name input" type="text" placeholder="Votre Login" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input id="contact_input_name4" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "phone"); ?>" name="phone" class="contact_input contact_input_name input" type="number" placeholder="Votre Numero de Telephone" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input id="contact_input_name5" name="password" class="contact_input contact_input_name input" type="password" placeholder="Votre Mot de Passe" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <input id="contact_input_name6" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "pprenom"); ?>" name="pprenom" class="contact_input contact_input_name input" type="texte" placeholder="Nom et Prenom Personne à contacter" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <input id="contact_input_name7" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "pcontacter"); ?>" name="pphone" class="contact_input contact_input_name input" type="number" placeholder="Numero Telephone Personne à contacter" required="required" data-error="Name is required.">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input id="contact_input_name8" value="<?=$CI->users->getOneData($_SESSION['re_userid'], "facebook"); ?>" name="facebook" class="contact_input contact_input_name input" type="text" placeholder="Mon nom Facebook" required="required" data-error="Name is required.">
+                                                <input id="contact_input_name11" value="" name="prenomP" class="contact_input contact_input_name input" type="text" placeholder="Prenom du Proprietaire" required="required" data-error="Name is required.">
                                             </div>
                                             <div class="col-md-6">
                                                 <select id="contact_input_name9" name="Vil_id" class="contact_input contact_input_name" required="required" data-error="Name is required.">
-                                                    <option selected="" value="value="<?=$CI->users->getOneData($_SESSION['re_userid'], "Vil_id"); ?>"" disabled="">Choisir Votre ville</option>
+                                                    <option selected="" value="value="<?=$CI->users->getOneData($_SESSION['re_userid'], "Vil_id"); ?>"" disabled="">Retrouver a :</option>
                                                     <?php
                                                     $CI = &get_instance();
                                                     foreach ($CI->ville->getAllville() as $row):
@@ -151,48 +133,20 @@ $CI = &get_instance();
                                                     ?>
                                                 </select>
                                             </div>
+                                            <div class="col-md-12">
+                                                <textarea id="contact_input_name12" value="" name="details" class="contact_input contact_input_name input" placeholder="Description du document" required="required" data-error="Name is required." style="min-height:100px;"></textarea>
+                                            </div>
                                             <div class="col-md-12" id="reponses"></div>
                                         </div>
 
                                         <button id="contact_send_btn" type="reset" class="contact_send_btn btn-warning trans_200 pull-left">Annuler</button>
-                                        <button id="contact_send_btn push" type="submit" class="contact_send_btn trans_200 pull-left" value="Submit">Editer mon Compte</button>
+                                        <button id="contact_send_btn push" type="submit" class="contact_send_btn trans_200 pull-left" value="Submit">Valider l'enregistrement</button>
                                     </form>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-    <div class="popular">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="section_title text-center">
-                    <h2>Mes Documents Trouves</h2>
-                    <img src="<?= base_url() ?>assets/img/document-management-software-benefits.png" class="img-fluid"/>
-                    <div style="text-align:center;" class="alert alert-info"><center>Aucun document affecte a votre profil</center></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="popular_content d-flex flex-md-row flex-column flex-wrap align-items-md-center align-items-start justify-content-md-between justify-content-start">
 
-                    <!-- Popular Item -->
-                    <div class="popular_item hidden">
-                        <a href="offers.html">
-                            <img src="<?=base_url()?>assets/images/popular_1.jpg" alt="image by Egzon Bytyqi">
-                            <div class="popular_item_content">
-                                <div class="popular_item_price">From $890</div>
-                                <div class="popular_item_title">Turkey</div>
-                            </div>
-                        </a>	
-                    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
                             </div>
                         </div>
                     </div>

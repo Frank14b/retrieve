@@ -9,7 +9,7 @@
 <!-- Home -->
 
 <div class="home">
-    <div class="home_background parallax-window" data-parallax="scroll" data-image-src="<?=base_url()?>assets/img/papier-identite-1024x448.jpg" data-speed="0.3"></div>
+    <div class="home_background parallax-window" data-parallax="scroll" data-image-src="<?=base_url()?>assets/img/financial.jpg" data-speed="0.3"></div>
     <div class="home_content">
         <div class="home_content_inner">
             <div class="home_text_large">Retrieve</div>

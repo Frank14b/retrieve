@@ -30,9 +30,12 @@ class Member extends CI_Controller {
 
             $data['title'] = $titre;
 
-            $this->load->model('users');
-
             $this->load->library('email');
+            $this->load->model('users');
+            $this->load->model('ville');
+            $this->load->model('pieces');
+            $this->load->model('newsletter');
+            $this->load->model('contacts');
             $this->load->library('user_agent');
             $this->load->library('pagination');
             //$this->load->model('Langue');
@@ -46,6 +49,9 @@ class Member extends CI_Controller {
                 $data[$param2] = $param1;
 
                 if ($param2 == "delete") {
+                    if($titre == "config"){
+                        $titre = "users";
+                    }
                     if ($this->$titre->delete_entry($param1)) {
                         $data['supprimer'] = $titre . " supprimer avec succes";
                     }
@@ -68,21 +74,21 @@ class Member extends CI_Controller {
             }
 
             if ($this->uri->segment(3) == "bascule") {
-                if ($this->users->getOneData($_SESSION['ens_userid'], 'role') == "Postulant") {
+                if ($this->users->getOneData($_SESSION['re_userid'], 'role') == "Postulant") {
                     $role = "Entreprise";
                 } else {
                     $role = "Postulant";
                 }
-                $this->users->basculeRole($_SESSION['ens_userid'], $role);
+                $this->users->basculeRole($_SESSION['re_userid'], $role);
                 header("Location:" . base_url() . $this->uri->segment(1) . "/dashboard");
             }
 
-            if ($this->users->getOneData($_SESSION["ens_userid"], "status") != 0) {
+            if ($this->users->getOneData($_SESSION["re_userid"], "status") != 0) {
                 header("Location:" . base_url() . $this->uri->segment(1) . "/dashboard/deconnexion");
             }
 
 
-            $data['roleUser'] = $this->users->getOneData($_SESSION['ens_userid'], 'role');
+            $data['roleUser'] = $this->users->getOneData($_SESSION['re_userid'], 'role');
 
             $this->getFil();
             $this->getMat();
@@ -125,11 +131,11 @@ class Member extends CI_Controller {
 
 
             $this->lang->load('form', $this->config->item('language'));
-            $this->load->view('member/templates/header', $data);
+            $this->load->view('templates/header', $data);
             $this->load->view('member/' . $page);
-            $this->load->view('member/templates/footer');
+            $this->load->view('templates/footer');
 
-            $this->Mouchard($titre);
+            //$this->Mouchard($titre);
         } else {
             show_404();
         }
@@ -269,7 +275,7 @@ class Member extends CI_Controller {
                 die();
             }
 
-            if ($this->exos->insertexos($file, $_SESSION['ens_userid']) == true) {
+            if ($this->exos->insertexos($file, $_SESSION['re_userid']) == true) {
                 echo 0;
                 die();
             } else {
@@ -383,7 +389,7 @@ class Member extends CI_Controller {
 
     public function addCours(){
         if (isset($_POST['addCours'])) {
-            $val = $this->cours->insertcours(0, $_SESSION['ens_userid']);
+            $val = $this->cours->insertcours(0, $_SESSION['re_userid']);
             if ($val != false) {
                 echo 1;
             } else {
@@ -507,7 +513,7 @@ class Member extends CI_Controller {
 
     public function editUsers1(){
         if (isset($_POST['editUsers1'])) {
-            $val = $this->users->updateusers1(0, $_SESSION['ens_userid']);
+            $val = $this->users->updateusers1(0, $_SESSION['re_userid']);
             if ($val != false) {
                 echo 1;
             } else {
@@ -519,7 +525,7 @@ class Member extends CI_Controller {
 
     public function editUsers2(){
         if (isset($_POST['editUsers2'])) {
-            $val = $this->users->updateusers2(0, $_SESSION['ens_userid']);
+            $val = $this->users->updateusers2(0, $_SESSION['re_userid']);
             if ($val != false) {
                 echo 1;
             } else {
@@ -531,7 +537,7 @@ class Member extends CI_Controller {
 
     public function vuMess() {
         if (isset($_POST['vuMess'])) {
-            $val = $this->messages->updateMessVu($_POST['Use_id2'], $_SESSION['ens_userid']);
+            $val = $this->messages->updateMessVu($_POST['Use_id2'], $_SESSION['re_userid']);
             if ($val != false) {
                 echo 1;
             } else {

@@ -18,7 +18,7 @@ class newsletter extends CI_Model
 
     public function getAllnewsletter()
     {
-        $this->db->where("status = 0");
+        //$this->db->where("status = 0");
         $query = $this->db->get("newsletter");
         return $query->result();
     }
