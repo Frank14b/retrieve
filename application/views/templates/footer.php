@@ -113,6 +113,9 @@
 
 <script src="<?= base_url() ?>assets/js/about_custom.js"></script>
 
+<script src="<?php echo base_url(); ?>assets/zonestyle/js/croppie.js"></script>
+<script src="<?php echo base_url(); ?>assets/zonestyle/js/pdfobject.js"></script>
+
 <script>
                                 $(document).ready(function () {
                                     $('.sendData').on('submit', function (e) {
@@ -195,8 +198,174 @@
                                                 }
                                     });// you have missed this bracket
                                 })
-                            });
+
+                            $(".add").hide();
+
+                            setInterval(function(){
+                                var libeller = $('#libeller').val();
+                                var details = $('#details').val();
+                                var nom = $('#nomp').val();
+                                var prenom = $('#prenomp').val();
+                                var ville = $('#ville').val();
+
+                                if(libeller != "" && details != "" && nom != "" && prenom != "" && ville != ""){
+                                    $(".add").fadeIn();
+                                }else{
+                                    $(".add").fadeOut();
+                                }
+                            }, 500);
+
+        $('#upload-image').hide();
+
+        $(".choose_image").click(function (e) {
+            $("#images").click();
+            e.preventDefault();
+        });
+
+        $('#images').change(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var ext = ['png', 'jpeg', 'jpg', 'gif', 'bmp'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), ext) === -1) {
+                alert('Erreur: Format non Valide image requise');
+                $this.val("");
+                $('.cropped_image').fadeOut();
+                $('#imgprofile').fadeIn();
+                $('#upload-image').hide();
+                $('#upload-imageProfile').hide();
+            } else {
+                $('#imgprofile').hide();
+                $('#upload-image').fadeIn();
+                $('.cropped_image').fadeIn();
+                $('#upload-imageProfile').fadeIn();
+            }
+        });
+
+        $image_crop = $('#upload-image').croppie({
+            enableExif: true,
+            viewport: {
+                width: 400,
+                height: 400,
+                type: 'square'
+            },
+            boundary: {
+                width: 450,
+                height: 450
+            },
+            showZoomer: true,
+            enableResize: true,
+            enableOrientation: true
+        });
+
+        //$image_crop.croppie('bind');
+        $image_crop.croppie('setZoom', 1.0);
+
+        $("#RotateAntiClockwise").on("click", function () {
+            $image_crop.croppie('rotate', -90);
+        });
+        $("#RotateClockwise").on("click", function () {
+            $image_crop.croppie('rotate', 90);
+        });
+
+        $('#images').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $image_crop.croppie('bind', {
+                    url: e.target.result,
+                    orientation: 4
+                }).then(function () {
+                    console.log('jQuery bind complete');
+                });
+
+                $image_crop.result('blob').then(function (blob) {
+                    // do something with cropped blob
+                });
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.cropped_imageDoc ').on('click', function (ev) {
+
+            var libeller = $('#libeller').val();
+            var details = $('#details').val();
+            var nom = $('#nomp').val();
+            var prenom = $('#prenomp').val();
+            var ville = $('#ville').val();
+            var user = $('#user').val();
+
+            $image_crop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (response) {
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {"imageP": response, "details": details, "user":user, "libeller": libeller, "nomP": nom, "prenomP": prenom, "Vil_id": ville, "addfile": ""},
+                    success: function (data) {
+                        alert(data);
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+
+        $('#val1').keyup(function(){
+            var val = $(this).val()
+            if(val.length > 2){
+                $('#rs1').fadeIn(function(){
+                    var $this = $(this)
+                    $this.html('<div class="col-md-12 alert text-center" style="background: none; padding:0px; border-radius:0px"><center><img src="<?php echo base_url(); ?>assets/img/loading.gif" style="width: 34px; height: 34px; border-radius: 50%;"/></center>')
+                    
+                    $.ajax({
+                        url: "",
+                        type: "POST",
+                        data: {"nom": val, "autoSearchNom": ""},
+                        dataType: 'json',
+                        success: function (data) {
+                            $this.html('<p id="frr" style="background:#eee; padding:10px;"></p>')
+                            for (i in data) {
+                                $('#frr').append('<li><a href="<?= base_url() ?>fr/doc" style="color:#444"><b>'+data[i].libeller+'</b>&nbsp;('+data[i].nomP+'&nbsp;'+data[i].prenomP+')</a></li>')
+                            }
+                        }
+                    });
+                })
+            }else{
+                $('#rs1').hide()
+            }
+        });
+
+        $('#val2').keyup(function(){
+            var val = $(this).val()
+            if(val.length > 2){
+                $('#rs2').fadeIn(function(){
+                    var $this = $(this)
+                    $this.html('<div class="col-md-12 alert text-center" style="background: none; padding:0px; border-radius:0px"><center><img src="<?php echo base_url(); ?>assets/img/loading.gif" style="width: 34px; height: 34px; border-radius: 50%;"/></center>')
+                    
+                    $.ajax({
+                        url: "",
+                        type: "POST",
+                        data: {"prenom": val, "autoSearchPrenom": ""},
+                        dataType: 'json',
+                        success: function (data) {
+                            $this.html('<p id="frr2" style="background:#eee; padding:10px;"></p>')
+                            for (i in data) {
+                                $('#frr2').append('<li><a href="<?= base_url() ?>fr/doc" style="color:#444"><b>'+data[i].libeller+'</b>&nbsp;('+data[i].nomP+'&nbsp;'+data[i].prenomP+')</a></li>')
+                            }
+                        }
+                    });
+                })
+            }else{
+                $('#rs2').hide()
+            }
+        });
+
+    });
 </script>
+<style>
+    #rs1, #rs2{
+        display:none;
+    }
+</style>
 </body>
 </html>
 

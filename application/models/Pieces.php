@@ -4,18 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class pieces extends CI_Model
 {
     public $id;
-    public $nom;
-    public $prenom;
-    public $email;
-    public $pcontacter;
-    public $pprenom;
-    public $phone;
-    public $facebook;
-    public $role;
+    public $nomP;
+    public $prenomP;
+    public $Use_id;
+    public $libeller;
+    public $details;
     public $Vil_id;
+    public $status;
     public $dates;
-    public $login;
-    public $password;
     public $photo;
 
     public function __construct()
@@ -24,6 +20,34 @@ class pieces extends CI_Model
         parent::__construct();
         $this->load->database();
         //$this->db->method_name();
+    }
+
+    public function findByNom($nom)
+    {
+        $this->nomP = $nom;
+        $this->status = 3;
+
+        $this->db->like("nomP", $this->nomP);
+        $query = $this->db->get("pieces");
+        if ($query) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+
+    public function findByPrenom($nom)
+    {
+        $this->nomP = $nom;
+        $this->status = 3;
+
+        $this->db->or_like("prenomP", $this->nomP);
+        $query = $this->db->get("pieces");
+        if ($query) {
+            return $query->result();
+        } else {
+            return false;
+        }
     }
 
     public function getAllpieces()
@@ -121,25 +145,17 @@ class pieces extends CI_Model
         }
     }
 
-    public function insertpieces($code)
+    public function insertpieces($photo)
     {
-        //$this->db->select_max("id");
-        //$id = $this->db->get("pieces");
-    /////////////// ===================== /////////////////////////
-        //$this->id = $id;
         $this->Vil_id = $_POST['Vil_id']; // please read the below note
-        $this->password = sha1($_POST['password']);
         $this->dates = date("Y-m-d");
-        $this->login = $_POST['login'];
-        $this->nom = $_POST['nom'];
-        $this->prenom = $_POST['prenom'];
-        $this->role = $_POST['role'];
-        $this->phone = $_POST['phone'];
-        $this->email = $_POST['email'];
-        $this->pcontacter = $_POST['pphone'];
-        $this->pprenom = $_POST['pprenom'];
-        $this->facebook = $_POST['facebook'];
-        //$this->status = $code;
+        $this->details = $_POST['details'];
+        $this->nomP = $_POST['nomP'];
+        $this->prenomP = $_POST['prenomP'];
+        $this->libeller = $_POST['libeller'];
+        $this->Use_id = $_POST['user'];
+        $this->status =  0;
+        $this->photo = $photo;
 
         if ($this->db->insert("pieces", $this)) {
             return true;

@@ -28,7 +28,7 @@
 
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/responsive.css">
         <?php
-        if ($title == "member" || $title == "contacts" || $title == "doc" || $title="dashboard") {
+        if ($title == "member" || $title == "contacts" || $title == "apropos" || $title == "doc" || $title="dashboard") {
             ?>
             <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/contact_styles.css">
             <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/styles/contact_responsive.css">
@@ -41,6 +41,8 @@
             <?php 
         }
         ?>
+
+        <link href="<?php echo base_url(); ?>assets/zonestyle/css/croppie.css" rel="stylesheet"/>
     </head>
     <body>
 
@@ -316,7 +318,7 @@
                                     <li class="main_nav_item <?php if ($title == "acceuil")echo 'active'?>"><a href="<?= base_url() ?>">Acceuil</a></li>
                                     <li class="main_nav_item <?php if ($title == "apropos")echo 'active'?>"><a href="<?= base_url() ?>fr/apropos">Apropos</a></li>
                                     <li class="main_nav_item <?php if ($title == "member")echo 'active'?>"><a href="<?= base_url() ?>fr/member">M'inscrire</a></li>
-                                    <li class="main_nav_item <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Signaler un Document</a></li>
+                                    <li class="main_nav_item <?php if ($title == "doc")echo 'active'?>"><a href="<?= base_url() ?>fr/doc">Document</a></li>
                                     <li class="main_nav_item <?php if ($title == "contacts")echo 'active'?>"><a href="<?= base_url() ?>fr/contacts">Contacts</a></li>
                                   <?php 
                               }
@@ -331,7 +333,7 @@
                                  <li class="btn btn-danger btn-sm"><a href="<?= base_url() ?>fr/dashboard/deconnexion" style="color:#fff">Deconnexion</a></li>
                                  <?php 
                                  if($roleUser == "Admin"){
-                                     ?><li class="btn btn-primary btn-sm"><a href="<?= base_url() ?>fr/dashboard/config" style="color:#fff">Configuration</a></li><?php 
+                                     ?><li class="btn btn-primary btn-sm"><a href="<?= base_url() ?>fr/dashboard/config" style="color:#fff"><i class="fa fa-info"></i></a></li><?php 
                                  }
                              }
                             ?>

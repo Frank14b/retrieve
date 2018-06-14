@@ -31,13 +31,19 @@
             <div class="col-12">
                 <div class="find_form_container">
                     <form action="#" id="find_form" class="find_form d-flex flex-md-row flex-column align-items-md-center align-items-start justify-content-md-between justify-content-start flex-wrap">
-                        <div class="find_item">
+                        <div class="find_item" style="position:relative;">
                             <div>Votre Nom Complet :</div>
-                            <input type="text" class="destination find_input" required="required" placeholder="Entrez votre Nom">
+                            <input type="text" id="val1" class="destination find_input" required="required" placeholder="Entrez votre Nom">
+                            <div id="rs1" class="hover" style="width:100%; z-index:99; position:absolute; top:84px; left:0; background:#fff; min-height:10px; border-radius:4px;">
+
+                            </div>
                         </div>
-                        <div class="find_item">
+                        <div class="find_item" style="position:relative;">
                             <div>Votre Prenom Complet :</div>
-                            <input type="text" class="destination find_input" required="required" placeholder="Entrez votre Prenom">
+                            <input type="text" id="val2" class="destination find_input" required="required" placeholder="Entrez votre Prenom">
+                            <div id="rs2" class="hover" style="width:100%; z-index:99; position:absolute; top:84px; left:0; background:#fff; min-height:10px; border-radius:4px;">
+
+                            </div>
                         </div>
                         <button class="button find_button">Rechercher</button>
                     </form>

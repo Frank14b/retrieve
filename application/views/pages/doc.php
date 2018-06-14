@@ -17,7 +17,7 @@
             <div class="col">
                 <div class="home_content">
                     <div class="home_content_inner">
-                        <div class="home_title">Jai retrouvé un document égaré !</div>
+                        <div class="home_title">Jai retrouvé un document égaré ! <hr> Acceder a mon Compte</div>
                         <div class="home_breadcrumbs">
                             <ul class="home_breadcrumbs_list">
                                 <li class="home_breadcrumb"><a href="index.html">Acceuil</a></li>

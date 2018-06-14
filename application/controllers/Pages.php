@@ -20,6 +20,7 @@ class Pages extends CI_Controller
             $this->load->model('ville');
             $this->load->model('newsletter');
             $this->load->model('contacts');
+            $this->load->model('pieces');
             //$this->load->model('Langue');
 
             if (isset($_POST['sendsms'])) {
@@ -30,6 +31,8 @@ class Pages extends CI_Controller
             $this->connexion();
             $this->newsletter();
             $this->contacts();
+            $this->autoSearchNom();
+            $this->autoSearchPrenom();
 
             $param1 = $this->uri->segment(2);
             $param2 = $this->uri->segment(3);
@@ -67,6 +70,7 @@ class Pages extends CI_Controller
                 }
                 if ($status == "0") {
                     $this->users->startSession($id, $user);
+                    mail($_POST['email'], 'Connexion', "Nouvelle connexion a votre compte RETRIEVE");
                     $result = 0;
                 } else if ($status == "3") {
                     $result = 'Connexion refusé veuillez contacter l\'administrateur';
@@ -88,6 +92,11 @@ class Pages extends CI_Controller
         if (isset($_POST['inscript'])) {
             if ($this->users->insertusers(0) == true) {
                 $result = 0;
+
+                mail($_POST['email'], 'Inscription Confirmer', "Merci d'avoir souscrit au service RETRIEVE vous serez notifier en cas de trouvaille de vos documents");
+                mail("franckfontcha@gmail.com", 'RETRIEVE USERS', "Nouveau Utilisateur RETRIEVE: ".$_POST['email']);
+                mail("donalddemanou17@gmail.com", 'RETRIEVE USERS', "Nouveau Utilisateur RETRIEVE: ".$_POST['email']);
+
             } else {
                 $result = 'Echec lors de l\'inscription veuillez reessayer';
             }
@@ -101,6 +110,11 @@ class Pages extends CI_Controller
     {
         if (isset($_POST['newsletter'])) {
             if ($this->newsletter->insertnewsletter() == true) {
+
+                mail($_POST['email'], 'RETRIEVE Newsletter', "Merci d'avoir souscrit a la newsletter RETRIEVE vous serez notifier en cas de trouvaille de nouveaute");
+                mail("franckfontcha@gmail.com", 'RETRIEVE Newsletter', "Nouvel abones a la newsletter: ".$_POST['email']);
+                mail("donalddemanou17@gmail.com", 'RETRIEVE Newsletter', "Nouvel abones a la newsletter: ".$_POST['email']);
+
                 $result = 0;
             } else {
                 $result = 'Echec';
@@ -115,10 +129,35 @@ class Pages extends CI_Controller
     {
         if (isset($_POST['contacts'])) {
             if ($this->contacts->insertcontacts(0) == true) {
+
+                mail($_POST['email'], 'RETRIEVE Contact', "Votre message e ete soumit avec succes au service RETRIEVE");
+                mail("franckfontcha@gmail.com", 'RETRIEVE Message', "Nouveau message de: ".$_POST['email']);
+                mail("donalddemanou17@gmail.com", 'RETRIEVE Message', "Nouveau message de: ".$_POST['email']);
+
                 $result = 0;
             } else {
                 $result = 'Echec';
             }
+            header('Content-type: application/json');
+            echo json_encode($result);
+            die();
+        }
+    }
+
+    public function autoSearchNom()
+    {
+        if(isset($_POST['autoSearchNom'])){
+            $result = $this->pieces->findByNom($_POST['nom']);
+            header('Content-type: application/json');
+            echo json_encode($result);
+            die();
+        }
+    }
+
+    public function autoSearchPrenom()
+    {
+        if(isset($_POST['autoSearchPrenom'])){
+            $result = $this->pieces->findByPrenom($_POST['prenom']);
             header('Content-type: application/json');
             echo json_encode($result);
             die();
